@@ -1,0 +1,13 @@
+{{ $id := printf "chart-js-%d" .Ordinal }}
+{{ $height := .Get "height" | default "400px" }}
+{{ $width := .Get "width" | default "100%" }}
+<div class="my-8" style="width:{{ $width }}; max-width:100%; height:{{ $height }};">
+  <canvas id="{{ $id }}"></canvas>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var ctx = document.getElementById('{{ $id }}');
+    new Chart(ctx, {{ .Inner | safeJS }});
+  });
+</script>
+{{ .Page.Store.Set "hasChart" true }}

@@ -1,0 +1,30 @@
+{{- $url := .Get "URL" | default (.Get 0) -}}
+{{- $img := .Get "IMG" | default (.Get 1) -}}
+{{- $text := .Get "TEXT" | default (.Get 2) | default "Preview" -}}
+{{- $noiframe := .Get "NO_IFRAME" -}}
+{{- $class := .Get "CLASS" -}}
+
+<span class="prev-link-wrapper {{ $class }}" style="display: inline-block; position: relative;">
+    <u class="cursor-help border-b border-dotted border-black/30 hover:border-black transition-colors">{{ $text }}</u>
+    <span class="prev-popup bunker-window p-0 !mb-0" style="position: absolute !important; display: none !important; z-index: 9999 !important; left: 0; top: 100%;">
+        <span class="prev-content p-2" style="display: flex; flex-direction: column;">
+            {{- if $img -}}
+            <span style="display: block; margin-bottom: 0.5rem; border: 1px solid black; overflow: hidden;">
+                <img src="{{ $img | absURL }}" alt="preview image" style="width: 100%; height: auto; display: block; image-rendering: pixelated;">
+            </span>
+            {{- end -}}
+            
+            {{- if not $noiframe -}}
+            <span style="display: block; margin-bottom: 0.5rem; border: 1px solid black; background-color: white; overflow: hidden; height: 160px;">
+                <iframe class="prev-iframe" style="width: 100%; height: 100%; border: none;" src="about:blank" data-src="{{ $url }}" loading="lazy"></iframe>
+            </span>
+            {{- end -}}
+
+            <span class="prev-text" style="font-size: 10px; line-height: 1.2; font-family: monospace; color: #4a4a4a; word-break: break-word;" data-url="{{ $url }}">
+                <a href="{{ $url }}" target="_blank" rel="noopener" style="display: block; margin-top: 0.5rem; font-weight: bold; color: black; text-decoration: underline; text-transform: uppercase;">
+                    Open Resource ->
+                </a>
+            </span>
+        </span>
+    </span>
+</span>

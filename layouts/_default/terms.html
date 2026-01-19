@@ -1,0 +1,20 @@
+{{ define "main" }}
+<div class="bunker-window min-h-[400px]">
+    <div class="window-title"><span>CONTENT_HOSTING</span><span>TAXONOMY</span></div>
+    
+    <div class="p-4">
+        <h2 class="text-xl font-bold mb-4">{{ .Title }}</h2>
+        
+        <ul class="space-y-2">
+          {{ range $key, $value := .Data.Terms }}
+          <li>
+            <a href="{{ (print "/" $.Data.Plural "/" (lower $key)) | relURL }}" class="underline hover:bg-black hover:text-white transition-colors">
+              {{ $key }}
+            </a>
+            <span class="text-xs opacity-50">({{ len $value }})</span>
+          </li>
+          {{ end }}
+        </ul>
+    </div>
+</div>
+{{ end }}

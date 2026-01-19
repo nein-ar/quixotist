@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode | default "en-us" }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Title }} // {{ .Site.Title }}</title>
+    {{ $favICO := .Site.Params.favicon_ico | default (.Site.Params.favicon | default "img/favicon.ico") }}
+    {{ $favPNG := .Site.Params.favicon_png | default (.Site.Params.favicon | default "img/favicon.png") }}
+    <link rel="icon" href="{{ $favICO | absURL }}" sizes="any">
+    <link rel="icon" href="{{ $favPNG | absURL }}" type="image/png">
+    
+    <!-- TAILWIND & FONTS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="{{ "css/quixotist.css" | absURL }}" rel="stylesheet">
+    
+    <!-- WERX LOGIC INJECTION -->
+    <link href='{{ "/css/SerenityOS-Emoji.css" | absURL }}' rel="stylesheet" type="text/css">
+    <link href='{{ "/css/highlightjs_style.css" | absURL }}' rel="stylesheet" type="text/css">
+    <script id="MathJax-script" async src="{{ "/js/tex-mml-chtml.js" | absURL }}"></script>
+    <script async src="{{ "/js/highlight.min.js" | absURL }}"></script>
+    <script async src="{{ "/js/highlight-basic.min.js" | absURL }}"></script>
+    <script async src="{{ "/js/highlight-bash.min.js" | absURL }}"></script>
+    <script async src="{{ "/js/highlight-go.min.js" | absURL }}"></script>
+    <script async src="{{ "/js/highlight-c.min.js" | absURL }}"></script>
+
+    <!-- MERMAID SUPPORT -->
+    {{ if or (.HasShortcode "mermaid") (.Store.Get "hasMermaid") }}
+      <link rel="stylesheet" href="{{ "css/mermaid.css" | absURL }}">
+      <script src='{{ "/js/mermaid.min.js" | absURL }}'></script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+        });
+      </script>
+    {{ end }}
+    
+    <!-- CHARTJS SUPPORT -->
+    {{ if or (.HasShortcode "chart") (.Store.Get "hasChart") }}
+      <script src='{{ "/js/chart.min.js" | absURL }}'></script>
+    {{ end }}
+    
+    <!-- D3JS SUPPORT -->
+    {{ if or (.HasShortcode "d3js") (.Store.Get "hasD3JS") }}
+      <script src='{{ "/js/d3.min.js" | absURL }}'></script>
+      <script src='{{ "/js/topojson.min.js" | absURL }}'></script>
+    {{ end }}
+
+    <script src="{{ "/js/preview.js" | absURL }}"></script>
+
+    <style>
+        header nav, body > nav, footer.no-print { display: none !important; }
+    </style>
+</head>
+<body class="{{ if .IsHome }}page-home{{ else if .IsPage }}page-single{{ else }}page-list{{ end }} {{ if .Params.cover }}has-cover{{ end }} p-4 md:p-8">
+    <div class="scanline"></div>
+    <div class="max-w-6xl mx-auto">
+        {{ block "main" . }}{{ end }}
+    </div>
+</body>
+</html>

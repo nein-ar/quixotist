@@ -1,0 +1,4 @@
+<script id="d3js-inline-{{ .Ordinal }}">
+{{ .Inner | safeJS }}
+</script>
+{{ .Page.Store.Set "hasD3JS" true }}

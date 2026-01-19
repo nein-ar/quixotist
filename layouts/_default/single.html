@@ -1,0 +1,82 @@
+{{ define "main" }}
+<div class="print-main-container">
+    <!-- Print Cover (Visible only in print, Forces first page) -->
+    {{ if .Params.cover }}
+    <section class="print-cover-container print-only">
+        {{ partial "cover.html" . }}
+    </section>
+    {{ end }}
+
+    <!-- Header (Starts on a new page in Print) -->
+    <header class="flex flex-col md:flex-row items-center gap-6 mb-8 print-header">
+        {{ partial "header_content.html" . }}
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <!-- Left Column -->
+        <div class="md:col-span-3 no-print">
+            {{ range .Site.Params.widgets.left }}
+                {{ partial "widget.html" (dict "widget" . "context" $) }}
+            {{ end }}
+        </div>
+
+        <!-- Main Column -->
+        <div class="md:col-span-6 print-full-width">
+            <div class="bunker-window print-no-border">
+                <div class="window-title no-print"><span>CONTENT_HOSTING</span><span>JOURNAL</span></div>
+
+                <!-- Cover Page (Nested for Web, Separate for Print) -->
+                {{ if and .Params.cover (not .Params.cover_print_only) }}
+                <section class="no-print">
+                    {{ partial "cover.html" . }}
+                    <div class="accent-bar mt-8 no-print"></div>
+                </section>
+                {{ end }}
+
+                <article class="cat-v-post">
+                    <!-- <h2 class="text-2xl font-bold mb-1 leading-tight {{ if and .Params.cover (not .Params.cover_print_only) }}print-only{{ end }}">{{ .Title }}</h2>  -->
+                    <h2 class="text-2xl font-bold mb-1 leading-tight">{{ .Title }}</h2>
+                    <div class="flex items-center gap-2 mb-4">
+                        <!-- <span class="text-[10px] opacity-50 {{ if and .Params.cover (not .Params.cover_print_only) }}print-only{{ end }}">{{ .Date.Format "2006-01-02" }}</span>  -->
+                        <span class="text-[10px] opacity-50">{{ .Date.Format "2006-01-02" }}</span>
+                        {{ range .Params.tags }}
+                        <span class="text-[9px] bg-black text-white px-1 uppercase">{{ . }}</span>
+                        {{ end }}
+                    </div>
+
+                    <div class="text-sm leading-relaxed space-y-4">
+                        {{ if .Params.toc }}
+                        <div class="toc-container bg-gray-100 p-2 border border-black mb-4 text-xs">
+                            <p class="font-bold border-b border-black mb-2">TABLE_OF_CONTENTS</p>
+                            {{ .TableOfContents }}
+                        </div>
+                        {{ end }}
+
+                        {{ .Content }}
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="md:col-span-3 no-print">
+            {{ range .Site.Params.widgets.right }}
+                {{ partial "widget.html" (dict "widget" . "context" $) }}
+            {{ end }}
+        </div>
+    </div>
+</div>
+
+<footer class="mt-8 no-print">
+    {{ if .Site.Params.marquee.text }}
+    <div class="marquee border-2 border-black">
+        <div class="marquee-content">
+            {{ .Site.Params.marquee.text }} {{ .Site.Params.marquee.text }}
+        </div>
+    </div>
+    {{ end }}
+    <div class="text-[8px] mt-2 text-center uppercase tracking-widest">
+        {{ .Site.Params.copyright | default "All rights reserved to the individual." }}
+    </div>
+</footer>
+{{ end }}

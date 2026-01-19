@@ -1,0 +1,12 @@
+name = "Quixotist"
+license = "ISC"
+licenselink = "https://opensource.org/licenses/ISC"
+description = "A libertine, brutality-focused theme based on WERX"
+homepage = "https://quixotist.nein.ar"
+tags = ["minimal", "brutalist", "plan9", "suckless", "clean"]
+features = ["blog", "docs", "mermaid", "chartjs", "mathjax", "d3js", "printable"]
+min_version = "0.110.0"
+
+[author]
+  name = "xplshn"
+  homepage = "https://xplshn.com.ar"

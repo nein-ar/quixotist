@@ -1,0 +1,78 @@
+{{ define "main" }}
+<div class="print-main-container">
+    <!-- Header Section -->
+    <header class="flex flex-col md:flex-row items-center gap-6 mb-8 print-header">
+        {{ partial "header_content.html" . }}
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <!-- Left Column -->
+        <div class="md:col-span-3">
+            {{ range .Site.Params.widgets.left }}
+                {{ partial "widget.html" (dict "widget" . "context" $) }}
+            {{ end }}
+        </div>
+
+        <!-- Main Column -->
+        <div class="md:col-span-6">
+            <!-- Main Content from _index.md -->
+            {{ if .Content }}
+            <div class="bunker-window">
+                <div class="window-title"><span>CONTENT_HOSTING</span><span>100% HEALTH</span></div>
+                <div class="p-4">
+                     <div class="border-l-4 border-[#ffcc00] pl-4 mb-4">
+                        <h1 class="text-2xl font-bold font-mono uppercase">{{ .Title }}</h1>
+                     </div>
+                     <div class="text-[10px] text-gray-500 font-mono mb-6 uppercase">
+                        {{ .Date.Format "2006-01-02" }} // ARCHIVE
+                     </div>
+                     <div class="prose font-mono text-sm max-w-none">
+                        {{ .Content }}
+                     </div>
+                </div>
+            </div>
+            {{ end }}
+
+            {{ range .Site.Params.widgets.center }}
+                 {{ if eq .type "posts" }}
+                    <div class="bunker-window">
+                        <div class="window-title"><span>CONTENT_HOSTING</span><span>LATEST_ENTRIES</span></div>
+                        <div class="space-y-8">
+                            {{ range (where $.Site.RegularPages "Type" "posts") }}
+                            <article class="cat-v-post">
+                                <h2 class="text-xl font-bold mb-1"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+                                <p class="text-[10px] opacity-50 mb-2">{{ .Date.Format "2006-01-02" }}</p>
+                                <p class="text-sm line-clamp-3">{{ .Summary }}</p>
+                                <a href="{{ .Permalink }}" class="text-xs uppercase font-bold mt-2 inline-block border-b-2 border-black">Read More</a>
+                            </article>
+                            {{ end }}
+                        </div>
+                    </div>
+                 {{ else }}
+                    {{ partial "widget.html" (dict "widget" . "context" $) }}
+                 {{ end }}
+            {{ end }}
+        </div>
+
+        <!-- Right Column -->
+        <div class="md:col-span-3">
+            {{ range .Site.Params.widgets.right }}
+                {{ partial "widget.html" (dict "widget" . "context" $) }}
+            {{ end }}
+        </div>
+    </div>
+</div>
+
+<footer class="mt-8">
+    {{ if .Site.Params.marquee.text }}
+    <div class="marquee border-2 border-black">
+        <div class="marquee-content">
+            {{ .Site.Params.marquee.text }} {{ .Site.Params.marquee.text }}
+        </div>
+    </div>
+    {{ end }}
+    <div class="text-[8px] mt-2 text-center uppercase tracking-widest">
+        {{ .Site.Params.copyright | default "All rights reserved to the individual." }}
+    </div>
+</footer>
+{{ end }}
