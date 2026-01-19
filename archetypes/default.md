@@ -21,14 +21,14 @@ tags: ["manual", "demo"]
 toc: true
 ---
 
-<!-- 
+<!--
     SPECIAL TAG: .on-cover
-    Anything with the class "on-cover" will be migrated to the cover page 
+    Anything with the class "on-cover" will be migrated to the cover page
     during printing. Use it for logos, special notices, or extra cover art.
 -->
 <div class="on-cover doc-center my-8">
     <div class="bunker-window inline-block p-4">
-        <span class="text-xl font-bold uppercase tracking-widest">PROPRIETARY_SYSTEM_DOCUMENT</span>
+        <span class="text-xl font-bold uppercase tracking-widest">HI!</span>
     </div>
 </div>
 
