@@ -1,78 +1,80 @@
+<!-- BEGIN: layouts/partials/cover.html -->
 {{ if .Params.cover }}
-<div class="cover-bunker-wrapper">
-    <div class="print-cover">
-        <div class="cover-inner style-{{ .Params.cover_style | default "default" }}">
+    <div class="cover-bunker-wrapper">
+        <div class="print-cover">
+            <div class="cover-inner style-{{ .Params.cover_style | default "default" }}">
 
-            {{ if eq .Params.cover_style "sleek" }}
-            <!-- SLEEK STYLE (Modern, Technical) -->
-            <div class="cover-top relative">
-                <div class="absolute top-0 right-0 bg-black text-white px-4 py-1 text-[10px] font-bold uppercase tracking-widest no-print">
-                    {{ .Site.Title }} // DOC_ID: {{ .File.UniqueID | first 8 | upper }}
-                </div>
-                
-                <h1 class="font-bold uppercase tracking-tighter text-3xl mb-2">{{ .Title }}</h1>
-                
-                <div class="h-2 bg-[#ffcc00] w-24 mb-8"></div>
-                
-                {{ if .Params.subtitle }}
-                <p class="font-mono mb-6 text-lg">{{ .Params.subtitle }}</p>
-                {{ end }}
+                {{ if eq .Params.cover_style "sleek" }}
+                    <!-- SLEEK STYLE (Modern, Technical) -->
+                    <div class="cover-top relative">
+                        <div class="absolute top-0 right-0 bg-black text-white px-4 py-1 text-[10px] font-bold uppercase tracking-widest no-print">
+                            {{ .Site.Title }} // DOC_ID: {{ .File.UniqueID | first 8 | upper }}
+                        </div>
+                        
+                        <h1 class="font-bold uppercase tracking-tighter text-3xl mb-2">{{ .Title }}</h1>
+                        
+                        <div class="h-2 bg-[#ffcc00] w-24 mb-8"></div>
+                        
+                        {{ if .Params.subtitle }}
+                            <p class="font-mono mb-6 text-lg">{{ .Params.subtitle }}</p>
+                        {{ end }}
 
-                {{ if .Params.abstract }}
-                <div class="mb-8 p-6 bg-gray-50 border-l-4 border-gray-400 text-sm font-mono">
-                    <strong class="uppercase text-xs tracking-widest block mb-4">Abstract</strong>
-                    <p class="leading-relaxed text-justify">{{ .Params.abstract }}</p>
-                </div>
+                        {{ if .Params.abstract }}
+                            <div class="mb-8 p-6 bg-gray-50 border-l-4 border-gray-400 text-sm font-mono">
+                                <strong class="uppercase text-xs tracking-widest block mb-4">Abstract</strong>
+                                <p class="leading-relaxed text-justify">{{ .Params.abstract }}</p>
+                            </div>
+                        {{ end }}
+                    </div>
+
+                    <div class="cover-metadata grid grid-cols-2 gap-y-8 text-sm font-mono pt-8 border-t-2 border-black">
+                        <div>
+                            <p class="text-[10px] uppercase text-gray-500 mb-1">Author</p>
+                            <p class="font-bold">{{ .Params.author | default .Site.Params.author | default "Unknown" }}</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] uppercase text-gray-500 mb-1">Date</p>
+                            <p class="font-bold">{{ .Date.Format "January 2, 2006" }}</p>
+                        </div>
+                        {{ if .Params.version }}
+                            <div>
+                                <p class="text-[10px] uppercase text-gray-500 mb-1">Version</p>
+                                <p class="font-bold">{{ .Params.version }}</p>
+                            </div>
+                        {{ end }}
+                        {{ if .Params.license }}
+                            <div>
+                                <p class="text-[10px] uppercase text-gray-500 mb-1">License</p>
+                                <p class="font-bold">{{ .Params.license }}</p>
+                            </div>
+                        {{ end }}
+                    </div>
+
+                {{ else }}
+                    <!-- ACADEMIC STYLE (Default) -->
+                    <div class="cover-top text-center">
+                        <h1 class="font-serif font-bold text-4xl mb-6">{{ .Title }}</h1>
+                        {{ if .Params.abstract }}
+                            <div class="text-left max-w-2xl mx-auto my-12 p-8 bg-gray-50 border border-gray-200">
+                                <p class="text-center font-bold uppercase text-xs tracking-widest mb-4">Abstract</p>
+                                <p class="text-sm font-serif leading-relaxed text-justify">{{ .Params.abstract }}</p>
+                            </div>
+                        {{ end }}
+                    </div>
+
+                    <div class="cover-metadata border-t-2 border-black pt-8 flex justify-between items-end">
+                        <div class="font-serif">
+                            <p class="font-bold text-lg">{{ .Params.author | default .Site.Params.author }}</p>
+                            <p class="text-sm italic text-gray-600">{{ .Params.affiliation | default .Site.Title }}</p>
+                        </div>
+                        <div class="text-right text-sm font-serif">
+                            <p class="font-bold">{{ .Date.Format "2006.01.02" }}</p>
+                            <p class="uppercase text-[10px] opacity-50">{{ .Params.license }} // VERSION {{ .Params.version }}</p>
+                        </div>
+                    </div>
                 {{ end }}
             </div>
-
-            <div class="cover-metadata grid grid-cols-2 gap-y-8 text-sm font-mono pt-8 border-t-2 border-black">
-                <div>
-                    <p class="text-[10px] uppercase text-gray-500 mb-1">Author</p>
-                    <p class="font-bold">{{ .Params.author | default .Site.Params.author | default "Unknown" }}</p>
-                </div>
-                <div>
-                    <p class="text-[10px] uppercase text-gray-500 mb-1">Date</p>
-                    <p class="font-bold">{{ .Date.Format "January 2, 2006" }}</p>
-                </div>
-                {{ if .Params.version }}
-                <div>
-                    <p class="text-[10px] uppercase text-gray-500 mb-1">Version</p>
-                    <p class="font-bold">{{ .Params.version }}</p>
-                </div>
-                {{ end }}
-                {{ if .Params.license }}
-                <div>
-                    <p class="text-[10px] uppercase text-gray-500 mb-1">License</p>
-                    <p class="font-bold">{{ .Params.license }}</p>
-                </div>
-                {{ end }}
-            </div>
-
-            {{ else }}
-            <!-- ACADEMIC STYLE (Default) -->
-            <div class="cover-top text-center">
-                <h1 class="font-serif font-bold text-4xl mb-6">{{ .Title }}</h1>
-                {{ if .Params.abstract }}
-                <div class="text-left max-w-2xl mx-auto my-12 p-8 bg-gray-50 border border-gray-200">
-                    <p class="text-center font-bold uppercase text-xs tracking-widest mb-4">Abstract</p>
-                    <p class="text-sm font-serif leading-relaxed text-justify">{{ .Params.abstract }}</p>
-                </div>
-                {{ end }}
-            </div>
-
-            <div class="cover-metadata border-t-2 border-black pt-8 flex justify-between items-end">
-                <div class="font-serif">
-                    <p class="font-bold text-lg">{{ .Params.author | default .Site.Params.author }}</p>
-                    <p class="text-sm italic text-gray-600">{{ .Params.affiliation | default .Site.Title }}</p>
-                </div>
-                <div class="text-right text-sm font-serif">
-                    <p class="font-bold">{{ .Date.Format "2006.01.02" }}</p>
-                    <p class="uppercase text-[10px] opacity-50">{{ .Params.license }} // VERSION {{ .Params.version }}</p>
-                </div>
-            </div>
-            {{ end }}
         </div>
     </div>
-</div>
 {{ end }}
+<!-- END: layouts/partials/cover.html -->

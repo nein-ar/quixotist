@@ -1,0 +1,19 @@
+<!-- BEGIN: layouts/partials/post-preview.html -->
+<article class="cat-v-post">
+  <h2 class="text-xl font-bold mb-1">
+    <a href="{{ .Permalink }}"
+      >{{ or .Title .LinkTitle .File.ContentBaseName }}</a
+    >
+  </h2>
+  <p class="text-[10px] opacity-50 mb-2">
+    {{ if not .Date.IsZero }}{{ .Date.Format "2006-01-02" }}{{ else }}-----{{
+    end }}
+  </p>
+  <p class="text-sm line-clamp-3">{{ .Summary }}</p>
+  <a
+    href="{{ .Permalink }}"
+    class="text-xs uppercase font-bold mt-2 inline-block border-b-2 border-black"
+    >Read More</a
+  >
+</article>
+<!-- END: layouts/partials/post-preview.html -->

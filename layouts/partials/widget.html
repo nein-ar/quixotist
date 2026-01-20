@@ -1,3 +1,4 @@
+<!-- BEGIN: layouts/partials/widget.html -->
 {{ $widget := .widget }}
 {{ $context := .context }}
 
@@ -26,16 +27,24 @@
     {{ else }}
         <div class="bunker-window {{ if eq $widget.type "hero" }}text-center{{ end }}" {{ if $widget.title }}id="{{ $widget.title | urlize }}"{{ end }}>
             {{ if $widget.title }}
-            <div class="window-title">
-                <span>{{ $widget.title }}</span>
-                {{ if $widget.title_right }}<span>{{ $widget.title_right }}</span>{{ end }}
-            </div>
+                <div class="window-title">
+                    <span>{{ $widget.title }}</span>
+                    {{ if $widget.title_right }}<span>{{ $widget.title_right }}</span>{{ end }}
+                </div>
             {{ end }}
 
             <!-- Widget: Menu -->
             {{ if eq $widget.type "menu" }}
-                {{ range $context.Site.Menus.main }}
-                <a href="{{ .URL }}" class="nav-link">~/{{ .Name | lower }}</a>
+                {{ if $widget.dynamic }}
+                    {{ $home := $context.Site.Home }}
+                    <a href="{{ $home.RelPermalink }}" class="nav-link">~/{{ $home.Params.section_name | default "home" | lower }}</a>
+                    {{ range $context.Site.Sections }}
+                        <a href="{{ .RelPermalink }}" class="nav-link">~/{{ .Params.section_name | default .Title | default .File.ContentBaseName | lower }}</a>
+                    {{ end }}
+                {{ else }}
+                    {{ range $context.Site.Menus.main }}
+                        <a href="{{ .URL }}" class="nav-link">~/{{ .Name | lower }}</a>
+                    {{ end }}
                 {{ end }}
             {{ end }}
 
@@ -43,11 +52,11 @@
             {{ if eq $widget.type "status" }}
                 <div class="text-xs space-y-2">
                     {{ range $widget.rows }}
-                    <p><strong>{{ .key }}:</strong> {{ .value }}</p>
+                        <p><strong>{{ .key }}:</strong> {{ .value }}</p>
                     {{ end }}
                     {{ if $widget.quote }}
-                    <div class="accent-bar mt-2"></div>
-                    <p class="italic text-[10px]">{{ $widget.quote | safeHTML }}</p>
+                        <div class="accent-bar mt-2"></div>
+                        <p class="italic text-[10px]">{{ $widget.quote | safeHTML }}</p>
                     {{ end }}
                 </div>
             {{ end }}
@@ -62,7 +71,7 @@
             {{ if eq $widget.type "buttons" }}
                 <div class="flex flex-wrap justify-center gap-1">
                     {{ range $widget.items }}
-                    <a href="{{ .url | default "#" }}" class="btn-88x31 {{ .class }}" {{ if .alt }}title="{{ .alt }}"{{ end }}>{{ .name }}</a>
+                        <a href="{{ .url | default "#" }}" class="btn-88x31 {{ .class }}" {{ if .alt }}title="{{ .alt }}"{{ end }}>{{ .name }}</a>
                     {{ end }}
                 </div>
             {{ end }}
@@ -71,10 +80,11 @@
             {{ if eq $widget.type "links" }}
                 <ul class="text-[10px] space-y-2">
                     {{ range $widget.items }}
-                    <li>• <a href="{{ .url }}" class="underline">{{ .name }}</a> {{ .note }}</li>
+                        <li>• <a href="{{ .url }}" class="underline">{{ .name }}</a> {{ .note }}</li>
                     {{ end }}
                 </ul>
             {{ end }}
         </div>
     {{ end }}
 {{ end }}
+<!-- END: layouts/partials/widget.html -->

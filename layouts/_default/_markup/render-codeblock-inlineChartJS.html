@@ -1,4 +1,4 @@
-<canvas>
-  {{ .Inner | safeJS }}
-</canvas>
+<!-- BEGIN: layouts/_default/_markup/render-codeblock-inlineChartJS.html -->
+<canvas> {{ .Inner | safeJS }} </canvas>
+<!-- END: layouts/_default/_markup/render-codeblock-inlineChartJS.html -->
 {{ .Page.Store.Set "hasChartJS" true }}

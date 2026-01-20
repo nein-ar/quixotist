@@ -1,62 +1,92 @@
 {{ define "main" }}
+<!-- BEGIN: layouts/404.html -->
 <div class="bunker-window min-h-[400px] border-2 border-red-600">
-    <div class="window-title bg-red-600 text-white font-bold"><span>FATAL_EXCEPTION</span><span>0x00000404</span></div>
+  <div class="window-title bg-red-600 text-white font-bold">
+    <span>FATAL_EXCEPTION</span><span>0x00000404</span>
+  </div>
 
-    <div class="p-8 flex flex-col items-center justify-center text-center h-full space-y-8">
-
-        <div class="space-y-2">
-            <h1 class="text-8xl font-mono font-bold tracking-tighter text-red-600 opacity-80">404</h1>
-            <p class="text-xs uppercase tracking-[0.5em] font-bold">Segment Not Found</p>
-        </div>
-
-        <div class="w-full max-w-lg bg-black text-green-500 font-mono text-xs p-4 text-left border-t-4 border-red-600 shadow-lg break-all">
-
-            <p>
-                <span class="text-white">root@nein-ar:~$</span> wget <span id="cmd-url">{{ .RelPermalink }}</span>
-            </p>
-
-            <div class="text-gray-500 mt-2 space-y-1">
-                <p>--<span class="curr-time">2024-01-01 00:00:00</span>--  <span id="log-url">{{ .Permalink }}</span></p>
-                <p>Resolving host... 127.0.0.1</p>
-                <p>Connecting to 127.0.0.1... connected.</p>
-                <p>HTTP request sent, awaiting response... <span class="text-red-500 font-bold">404 Not Found</span></p>
-                <p class="text-red-500 font-bold mt-2"><span class="curr-time">2024-01-01 00:00:00</span> ERROR 404: Not Found.</p>
-            </div>
-
-            <p class="mt-4 text-gray-500">
-                Dump trace:<br>
-                0x00000000  00 00 00 00  00 00 00 00  ........<br>
-                0x00000010  DE AD BE EF  FF FF FF FF  ....????<br>
-            </p>
-
-            <p class="mt-2 animate-pulse">> _</p>
-        </div>
-
-        <div class="flex gap-4">
-            <a href="{{ .Site.BaseURL }}" class="btn-88x31 bg-gray-200 hover:bg-black hover:text-white border-2 border-black flex items-center justify-center font-bold text-xs uppercase tracking-wider px-6 py-2 transition-all">
-                System Reboot
-            </a>
-            <a href="javascript:history.back()" class="btn-88x31 bg-gray-200 hover:bg-red-600 hover:text-white border-2 border-black flex items-center justify-center font-bold text-xs uppercase tracking-wider px-6 py-2 transition-all">
-                Retry
-            </a>
-        </div>
+  <div
+    class="p-8 flex flex-col items-center justify-center text-center h-full space-y-8"
+  >
+    <div class="space-y-2">
+      <h1
+        class="text-8xl font-mono font-bold tracking-tighter text-red-600 opacity-80"
+      >
+        404
+      </h1>
+      <p class="text-xs uppercase tracking-[0.5em] font-bold">
+        Segment Not Found
+      </p>
     </div>
+
+    <div
+      class="w-full max-w-lg bg-black text-green-500 font-mono text-xs p-4 text-left border-t-4 border-red-600 shadow-lg break-all"
+    >
+      <p>
+        <span class="text-white">root@nein-ar:~$</span> wget
+        <span id="cmd-url">{{ .RelPermalink }}</span>
+      </p>
+
+      <div class="text-gray-500 mt-2 space-y-1">
+        <p>
+          --<span class="curr-time">2024-01-01 00:00:00</span>--
+          <span id="log-url">{{ .Permalink }}</span>
+        </p>
+        <p>Resolving host... 127.0.0.1</p>
+        <p>Connecting to 127.0.0.1... connected.</p>
+        <p>
+          HTTP request sent, awaiting response...
+          <span class="text-red-500 font-bold">404 Not Found</span>
+        </p>
+        <p class="text-red-500 font-bold mt-2">
+          <span class="curr-time">2024-01-01 00:00:00</span> ERROR 404: Not
+          Found.
+        </p>
+      </div>
+
+      <p class="mt-4 text-gray-500">
+        Dump trace:<br />
+        0x00000000 00 00 00 00 00 00 00 00 ........<br />
+        0x00000010 DE AD BE EF FF FF FF FF ....????<br />
+      </p>
+
+      <p class="mt-2 animate-pulse">> _</p>
+    </div>
+
+    <div class="flex gap-4">
+      <a
+        href="{{ .Site.BaseURL }}"
+        class="btn-88x31 bg-gray-200 hover:bg-black hover:text-white border-2 border-black flex items-center justify-center font-bold text-xs uppercase tracking-wider px-6 py-2 transition-all"
+      >
+        System Reboot
+      </a>
+      <a
+        href="javascript:history.back()"
+        class="btn-88x31 bg-gray-200 hover:bg-red-600 hover:text-white border-2 border-black flex items-center justify-center font-bold text-xs uppercase tracking-wider px-6 py-2 transition-all"
+      >
+        Retry
+      </a>
+    </div>
+  </div>
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const path = window.location.pathname;
-        const fullUrl = window.location.href;
+  document.addEventListener("DOMContentLoaded", function () {
+    const path = window.location.pathname;
+    const fullUrl = window.location.href;
 
-        // Update URL texts
-        const cmdEl = document.getElementById('cmd-url');
-        const logEl = document.getElementById('log-url');
-        if(cmdEl) cmdEl.innerText = path;
-        if(logEl) logEl.innerText = fullUrl;
+    // Update URL texts
+    const cmdEl = document.getElementById("cmd-url");
+    const logEl = document.getElementById("log-url");
+    if (cmdEl) cmdEl.innerText = path;
+    if (logEl) logEl.innerText = fullUrl;
 
-        // Update timestamps
-        const now = new Date().toISOString().replace('T', ' ').split('.')[0];
-        document.querySelectorAll('.curr-time').forEach(el => el.innerText = now);
-    });
+    // Update timestamps
+    const now = new Date().toISOString().replace("T", " ").split(".")[0];
+    document
+      .querySelectorAll(".curr-time")
+      .forEach((el) => (el.innerText = now));
+  });
 </script>
+<!-- END: layouts/404.html -->
 {{ end }}

@@ -1,9 +1,11 @@
+<!-- BEGIN: layouts/_default/baseof.html -->
 <!DOCTYPE html>
 <html lang="{{ .Site.LanguageCode | default "en-us" }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ .Title }} // {{ .Site.Title }}</title>
+    
     {{ $favICO := .Site.Params.favicon_ico | default (.Site.Params.favicon | default "img/favicon.ico") }}
     {{ $favPNG := .Site.Params.favicon_png | default (.Site.Params.favicon | default "img/favicon.png") }}
     <link rel="icon" href="{{ $favICO | absURL }}" sizes="any">
@@ -25,24 +27,24 @@
 
     <!-- MERMAID SUPPORT -->
     {{ if or (.HasShortcode "mermaid") (.Store.Get "hasMermaid") }}
-      <link rel="stylesheet" href="{{ "css/mermaid.css" | absURL }}">
-      <script src='{{ "/js/mermaid.min.js" | absURL }}'></script>
-      <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
-        });
-      </script>
+        <link rel="stylesheet" href="{{ "css/mermaid.css" | absURL }}">
+        <script src='{{ "/js/mermaid.min.js" | absURL }}'></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+            });
+        </script>
     {{ end }}
     
     <!-- CHARTJS SUPPORT -->
     {{ if or (.HasShortcode "chart") (.Store.Get "hasChart") }}
-      <script src='{{ "/js/chart.min.js" | absURL }}'></script>
+        <script src='{{ "/js/chart.min.js" | absURL }}'></script>
     {{ end }}
     
     <!-- D3JS SUPPORT -->
     {{ if or (.HasShortcode "d3js") (.Store.Get "hasD3JS") }}
-      <script src='{{ "/js/d3.min.js" | absURL }}'></script>
-      <script src='{{ "/js/topojson.min.js" | absURL }}'></script>
+        <script src='{{ "/js/d3.min.js" | absURL }}'></script>
+        <script src='{{ "/js/topojson.min.js" | absURL }}'></script>
     {{ end }}
 
     <script src="{{ "/js/preview.js" | absURL }}"></script>
@@ -58,3 +60,4 @@
     </div>
 </body>
 </html>
+<!-- END: layouts/_default/baseof.html -->

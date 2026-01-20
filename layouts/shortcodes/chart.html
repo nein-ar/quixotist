@@ -1,7 +1,10 @@
-{{ $id := printf "chart-js-%d" .Ordinal }}
-{{ $height := .Get "height" | default "400px" }}
-{{ $width := .Get "width" | default "100%" }}
-<div class="my-8" style="width:{{ $width }}; max-width:100%; height:{{ $height }};">
+<!-- BEGIN: layouts/shortcodes/chart.html -->
+{{ $id := printf "chart-js-%d" .Ordinal }} {{ $height := .Get "height" | default
+"400px" }} {{ $width := .Get "width" | default "100%" }}
+<div
+  class="my-8"
+  style="width:{{ $width }}; max-width:100%; height:{{ $height }};"
+>
   <canvas id="{{ $id }}"></canvas>
 </div>
 <script>
@@ -10,4 +13,5 @@
     new Chart(ctx, {{ .Inner | safeJS }});
   });
 </script>
+<!-- END: layouts/shortcodes/chart.html -->
 {{ .Page.Store.Set "hasChart" true }}

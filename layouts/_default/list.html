@@ -1,37 +1,54 @@
 {{ define "main" }}
+<!-- BEGIN: layouts/_default/list.html -->
 <div class="print-main-container">
-    <!-- Header Section -->
     <header class="flex flex-col md:flex-row items-center gap-6 mb-8 print-header">
         {{ partial "header_content.html" . }}
     </header>
 
     <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-        <!-- Left Column -->
         <div class="md:col-span-3 no-print">
             {{ range .Site.Params.widgets.left }}
                 {{ partial "widget.html" (dict "widget" . "context" $) }}
             {{ end }}
         </div>
 
-        <!-- Main Column -->
         <div class="md:col-span-6 print-full-width">
-            <div class="bunker-window print-no-border">
-                <div class="window-title no-print"><span>CONTENT_HOSTING</span><span>ARCHIVE</span></div>
-                <div class="space-y-8">
-                    {{ range .Paginator.Pages }}
-                    <article class="cat-v-post">
-                        <h2 class="text-xl font-bold mb-1"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-                        <p class="text-[10px] opacity-50 mb-2">{{ .Date.Format "2006-01-02" }}</p>
-                        <p class="text-sm line-clamp-3">{{ .Summary }}</p>
-                        <a href="{{ .Permalink }}" class="text-xs uppercase font-bold mt-2 inline-block border-b-2 border-black">Read More</a>
-                    </article>
-                    {{ end }}
+            <div class="bunker-window print-no-border" id="cat-v">
+                <div class="window-title no-print">
+                    <span>{{ .Title | upper }}</span>
+                    <span>{{ .Params.status | default "100% HEALTH" }}</span>
                 </div>
-                {{ partial "pagination.html" . }}
+
+                {{ if .Content }}
+                    <div class="p-4 text-sm">{{ .Content }}</div>
+                {{ end }}
+
+                {{ if .Params.previews }}
+                    {{ $articles := .RegularPages }}
+                    {{ $subdirs := .Sections }}
+
+                    {{ if and (not $articles) $subdirs }}
+                        {{ errorf "Section %s has 'previews: true' but only contains sub-sections. Previews only work for articles." .Path }}
+                    {{ end }}
+
+                    {{ if $articles }}
+                        <div class="space-y-8 p-4">
+                            {{ range (.Paginate $articles).Pages }}
+                                {{ partial "post-preview.html" . }}
+                            {{ end }}
+                        </div>
+                        {{ template "_internal/pagination.html" . }}
+                    {{ end }}
+
+                    {{ if $subdirs }}
+                        {{ partial "directory-listing.html" (dict "Pages" $subdirs "Title" "DIRECTORY LISTING" "IsSection" true) }}
+                    {{ end }}
+                {{ else }}
+                    {{ partial "directory-listing.html" . }}
+                {{ end }}
             </div>
         </div>
 
-        <!-- Right Column -->
         <div class="md:col-span-3 no-print">
             {{ range .Site.Params.widgets.right }}
                 {{ partial "widget.html" (dict "widget" . "context" $) }}
@@ -40,16 +57,17 @@
     </div>
 </div>
 
-<footer class="mt-8">
+<footer class="mt-8 no-print">
     {{ if .Site.Params.marquee.text }}
-    <div class="marquee border-2 border-black no-print">
-        <div class="marquee-content">
-            {{ .Site.Params.marquee.text }} {{ .Site.Params.marquee.text }}
+        <div class="marquee border-2 border-black no-print">
+            <div class="marquee-content">
+                {{ .Site.Params.marquee.text }} {{ .Site.Params.marquee.text }}
+            </div>
         </div>
-    </div>
     {{ end }}
     <div class="text-[8px] mt-2 text-center uppercase tracking-widest no-print">
         {{ .Site.Params.copyright | default "All rights reserved to the individual." }}
     </div>
 </footer>
+<!-- END: layouts/_default/list.html -->
 {{ end }}

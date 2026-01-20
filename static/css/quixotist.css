@@ -374,6 +374,10 @@ article a:hover { background-color: var(--accent-color); color: black; }
         margin: 1.5cm;
     }
 
+    .print-main-container {
+        page: document;
+    }
+
     .print-cover-container {
         page: cover;
         display: block !important;
@@ -385,7 +389,8 @@ article a:hover { background-color: var(--accent-color); color: black; }
     /* THE BORDER FIX: Encompass the entire cover content */
     .cover-bunker-wrapper {
         border: 4px solid black !important;
-        min-height: calc(100vh - 2cm) !important; /* Account for @page margins */
+        height: auto !important;
+        min-height: 0 !important;
         display: flex !important;
         flex-direction: column !important;
         padding: 2cm !important;
@@ -403,7 +408,6 @@ article a:hover { background-color: var(--accent-color); color: black; }
     /* THE SPECIAL TAG: Custom content migrates to middle of cover */
     .on-cover {
         display: block !important;
-        page: cover !important;
         margin: 2cm 0 !important;
     }
 
@@ -418,7 +422,8 @@ article a:hover { background-color: var(--accent-color); color: black; }
         align-items: center !important;
         gap: 1.5rem !important;
         display: flex !important;
-        page: document;
+        break-after: avoid !important;
+        page-break-after: avoid !important;
     }
 
     .print-header .bunker-window {
@@ -453,7 +458,6 @@ article a:hover { background-color: var(--accent-color); color: black; }
     .print-full-width {
         width: auto !important;
         max-width: none !important;
-        page: document;
     }
 
     /* Reset Layout Containers for Print */
@@ -468,10 +472,15 @@ article a:hover { background-color: var(--accent-color); color: black; }
     .bunker-window {
         border: 2px solid black !important;
         box-shadow: 2px 2px 0px 0px black !important;
-        margin-bottom: 1.5rem !important;
+        margin-bottom: 0 !important;
         padding: 1rem !important;
         background: white !important;
         box-sizing: border-box !important;
+    }
+
+    .cat-v-post {
+        margin-bottom: 0 !important;
+        border-left: 3px solid black !important;
     }
 
     .print-no-border {

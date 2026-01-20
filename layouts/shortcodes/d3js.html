@@ -1,4 +1,6 @@
+<!-- BEGIN: layouts/shortcodes/d3js.html -->
 <script id="d3js-inline-{{ .Ordinal }}">
-{{ .Inner | safeJS }}
+  {{ .Inner | safeJS }}
 </script>
+<!-- END: layouts/shortcodes/d3js.html -->
 {{ .Page.Store.Set "hasD3JS" true }}
