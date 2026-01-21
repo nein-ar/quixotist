@@ -1,81 +1,175 @@
-baseURL = "http://example.org/"
-languageCode = "en-us"
-title = "Quixotist Site"
+baseURL = 'https://nein.ar'
+languageCode = 'en-us'
+title = 'NEIN-AR'
 theme = "quixotist"
 
+publishDir = "pub"
+enableRobotsTXT = true
+ignoreFiles = ["\\.Rmd$", "_files$", "_cache$"]
+enableEmoji = true
+footnotereturnlinkcontents = "↗"
+
+# Enable raw HTML in markdown (required for quixotist custom HTML blocks)
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
 [params]
-  subtitle = "A Brutalist Blog"
-  # avatar = "/img/my-face.png" # Defaults to /img/favicon.png if not set
-  copyright = "All rights reserved to the individual."
-  
-  # Window Title Configuration
-  # Options: "title" (shows article title), "" (empty, default), or any custom string
-  window_title = ""
-  home_window_title = "" # Overrides window_title for the homepage
-  
-  # Window Status Configuration (Right side of title bar)
-  # Options: "path" (shows ~/section, default), or any custom string (e.g., "100% HEALTH")
+  subtitle = "SYSTEMS / SOFTWARE / PHILOSOPHY"
+  avatar = "https://github.com/nein-ar.png"
+  #favicon = "https://github.com/nein-ar.png"
+  description = "Dedicated to the cause"
+
   window_status = "path"
-  home_window_status = "path" # Overrides window_status for the homepage
+  home_window_status = "100% HEALTH"
+  window_title = "CONTENT_HOSTING"
+  home_window_title = "CONTENT_HOSTING"
 
-  [params.marquee]
-    text = "WELCOME TO THE BUNKER. STAY SAFE. READ MORE."
-
+  # Header Tags (The badges under the title)
   [[params.header_tags]]
-    text = "v1.0.0"
+    text = "PLAN 9"
+    style = "default" # default (white/border) or highlight (yellow/bold)
+  [[params.header_tags]]
+    text = "SUCKLESS"
+    style = "default"
+  [[params.header_tags]]
+    text = "VLLC"
     style = "highlight"
-  [[params.header_tags]]
-    text = "EST. 2024"
 
-  [params.widgets]
-    
-    # LEFT COLUMN WIDGETS
-    [[params.widgets.left]]
-      type = "menu"
-      title = "NAVIGATION"
-      title_right = "SYS"
-      dynamic = true # If true, lists sections. If false, uses main menu.
+  # Footer Marquee Text
+  [params.marquee]
+    text = "NO BLOAT. NO CPP. C99 SUPREMACY // PUBLIC DOMAIN // FULLY STATICALLY LINKED // INDUSTRIA ARGENTINA // EST. 2026 //"
 
-    [[params.widgets.left]]
-      type = "status"
-      title = "STATUS"
-      quote = "\"Reality is that which, when you stop believing in it, doesn't go away.\""
-      [[params.widgets.left.rows]]
-        key = "UPTIME"
-        value = "99.9%"
-      [[params.widgets.left.rows]]
-        key = "MOOD"
-        value = "STABLE"
+  # ==========================================
+  # LAYOUT CONFIGURATION (WIDGETS)
+  # Types: "menu", "status", "hero", "buttons", "links", "flag"
+  # ==========================================
 
-    [[params.widgets.left]]
-      type = "buttons"
-      title = "NETRING"
-      [[params.widgets.left.items]]
-        name = "GITHUB"
-        url = "https://github.com"
-        alt = "Code Repository"
-      [[params.widgets.left.items]]
-        name = "MAIL"
-        url = "mailto:user@example.com"
+  # --- LEFT COLUMN WIDGETS ---
 
-    # RIGHT COLUMN WIDGETS
-    [[params.widgets.right]]
-      type = "hero"
-      icon = "👁"
-      text = "ALWAYS WATCHING"
-    
-    [[params.widgets.right]]
-      type = "links"
-      title = "BLOGROLL"
-      [[params.widgets.right.items]]
-        name = "Hacker News"
-        url = "https://news.ycombinator.com"
-        note = "(tech)"
-      [[params.widgets.right.items]]
-        name = "Lobsters"
-        url = "https://lobste.rs"
+  [[params.widgets.left]]
+    title = "DIRECTORY"
+    title_right = "[X]"
+    type = "menu"
+    dynamic = true
 
-    [[params.widgets.right]]
-      type = "flag"
-      colors = ["#ff0000", "#ff9900", "#ffff00", "#00ff00", "#0099ff", "#663399"]
-      symbol = "★"
+  [[params.widgets.left]]
+    title = "SYSTEM_STATUS"
+    title_right = "_"
+    type = "status"
+    rows = [
+      { key = "OS", value = "derivelinux" },
+      { key = "LOC", value = "Argentina" },
+      { key = "MOOD", value = "Impacient" }
+    ]
+
+  #[[params.widgets.left]]
+  #  title = "MILEI_LION"
+  #  type = "hero"
+  #  icon = "🦁"
+  #  text = "Afuera el estado."
+
+  # --- CENTER COLUMN WIDGETS ---
+
+  # --- RIGHT COLUMN WIDGETS ---
+
+  [[params.widgets.right]]
+    title = "WEB_CLIQUE"
+    title_right = "(+)"
+    type = "buttons"
+
+    [[params.widgets.right.items]]
+      name = "Subscribe"
+      url = "/index.xml"
+      class = "bg-[#ffcc00] text-black font-bold"
+      alt = "RSS Feed"
+
+    [[params.widgets.right.items]]
+      name = "git.xplshn"
+      url = "https://git.xplshn.com.ar"
+      class = "bg-gray-200"
+
+    [[params.widgets.right.items]]
+      name = "harmful"
+      url = "https://harmful.cat-v.org"
+      class = "bg-purple-100"
+
+    [[params.widgets.right.items]]
+      name = "nosystemd"
+      url = "https://nosystemd.org"
+      class = "bg-red-100"
+
+    [[params.widgets.right.items]]
+      name = "suckless"
+      url = "https://suckless.org"
+      class = "bg-black text-white"
+
+    [[params.widgets.right.items]]
+      name = "Copacabana"
+      url = "https://copacabana.pindorama.net.br"
+      class = "bg-green-100"
+
+    [[params.widgets.right.items]]
+      name = "shithub"
+      url = "https://shithub.us"
+      class = "bg-gray-800 text-white"
+
+    [[params.widgets.right.items]]
+      name = "ManVsState"
+      url = "https://web.archive.org/web/20231123031907/https://managainstthestate.blogspot.com/2011/08/anarcho-capitalist-resources-by-wesker.html"
+      class = "bg-yellow-50 border-dashed"
+      alt = "Anarcho-Capitalist Resources"
+
+    [[params.widgets.right.items]]
+      name = "musl"
+      url = "https://musl.libc.org"
+      class = "bg-blue-100"
+
+  [[params.widgets.right]]
+    title = "INSPIRATION"
+    type = "links"
+    [[params.widgets.right.items]]
+      name = "cat-v.org"
+      url = "http://cat-v.org"
+      note = "(Sanity)"
+    [[params.widgets.right.items]]
+      name = "uriel †"
+      url = "http://uriel.cat-v.org"
+      note = "(Spirit)"
+
+  [[params.widgets.right]]
+    type = "flag"
+    colors = ["#74ACDF", "#FFFFFF", "#74ACDF"] # Argentina
+    symbol = "☀️"
+
+#  # --- HOMEPAGE SPECIFIC (Subdomains) ---
+#  [[params.subdomains]]
+#    url = "files.nein.ar"
+#    tag = "PUB"
+#  [[params.subdomains]]
+#    url = "git.nein.ar"
+#    tag = "SRC"
+#  [[params.subdomains]]
+#    url = "lab.nein.ar"
+#    tag = "EXP"
+#  [[params.subdomains]]
+#    url = "mises.nein.ar"
+#    tag = "ECON"
+
+[menu]
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/#about"
+    weight = 1
+  [[menu.main]]
+    identifier = "subdomains"
+    name = "Subdomains"
+    url = "/#subdomains"
+    weight = 3
+  [[menu.main]]
+    identifier = "friends"
+    name = "Friends"
+    url = "/#links"
+    weight = 4
