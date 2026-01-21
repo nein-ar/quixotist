@@ -1,0 +1,81 @@
+baseURL = "http://example.org/"
+languageCode = "en-us"
+title = "Quixotist Site"
+theme = "quixotist"
+
+[params]
+  subtitle = "A Brutalist Blog"
+  # avatar = "/img/my-face.png" # Defaults to /img/favicon.png if not set
+  copyright = "All rights reserved to the individual."
+  
+  # Window Title Configuration
+  # Options: "title" (shows article title), "" (empty, default), or any custom string
+  window_title = ""
+  home_window_title = "" # Overrides window_title for the homepage
+  
+  # Window Status Configuration (Right side of title bar)
+  # Options: "path" (shows ~/section, default), or any custom string (e.g., "100% HEALTH")
+  window_status = "path"
+  home_window_status = "path" # Overrides window_status for the homepage
+
+  [params.marquee]
+    text = "WELCOME TO THE BUNKER. STAY SAFE. READ MORE."
+
+  [[params.header_tags]]
+    text = "v1.0.0"
+    style = "highlight"
+  [[params.header_tags]]
+    text = "EST. 2024"
+
+  [params.widgets]
+    
+    # LEFT COLUMN WIDGETS
+    [[params.widgets.left]]
+      type = "menu"
+      title = "NAVIGATION"
+      title_right = "SYS"
+      dynamic = true # If true, lists sections. If false, uses main menu.
+
+    [[params.widgets.left]]
+      type = "status"
+      title = "STATUS"
+      quote = "\"Reality is that which, when you stop believing in it, doesn't go away.\""
+      [[params.widgets.left.rows]]
+        key = "UPTIME"
+        value = "99.9%"
+      [[params.widgets.left.rows]]
+        key = "MOOD"
+        value = "STABLE"
+
+    [[params.widgets.left]]
+      type = "buttons"
+      title = "NETRING"
+      [[params.widgets.left.items]]
+        name = "GITHUB"
+        url = "https://github.com"
+        alt = "Code Repository"
+      [[params.widgets.left.items]]
+        name = "MAIL"
+        url = "mailto:user@example.com"
+
+    # RIGHT COLUMN WIDGETS
+    [[params.widgets.right]]
+      type = "hero"
+      icon = "👁"
+      text = "ALWAYS WATCHING"
+    
+    [[params.widgets.right]]
+      type = "links"
+      title = "BLOGROLL"
+      [[params.widgets.right.items]]
+        name = "Hacker News"
+        url = "https://news.ycombinator.com"
+        note = "(tech)"
+      [[params.widgets.right.items]]
+        name = "Lobsters"
+        url = "https://lobste.rs"
+
+    [[params.widgets.right]]
+      type = "flag"
+      colors = ["#ff0000", "#ff9900", "#ffff00", "#00ff00", "#0099ff", "#663399"]
+      symbol = "★"

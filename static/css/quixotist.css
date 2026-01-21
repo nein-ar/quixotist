@@ -141,13 +141,13 @@ input, textarea, .code-block, pre {
     text-decoration: none;
 }
 
-.cat-v-post {
+.post {
     border-left: 3px solid var(--border-color);
     padding-left: 1.5rem;
     margin-bottom: 2rem;
 }
 
-.cat-v-post:last-child {
+.post:last-child {
     margin-bottom: 0;
 }
 
@@ -478,7 +478,7 @@ article a:hover { background-color: var(--accent-color); color: black; }
         box-sizing: border-box !important;
     }
 
-    .cat-v-post {
+    .post {
         margin-bottom: 0 !important;
         border-left: 3px solid black !important;
     }

@@ -25,8 +25,27 @@
         <div class="md:col-span-6 print-full-width">
             <div class="bunker-window print-no-border">
                 <div class="window-title no-print">
-                    <span>{{ .Title | upper }}</span>
-                    <span>{{ if .Section }}~/{{ .Section }}{{ else }}~/{{ end }}</span>
+                    {{ $winTitle := .Site.Params.window_title | default "" }}
+                    {{ if .IsHome }}
+                        {{ $winTitle = .Site.Params.home_window_title | default $winTitle }}
+                    {{ end }}
+
+                    {{ if eq (lower $winTitle) "title" }}
+                        <span>{{ .Title | upper }}</span>
+                    {{ else }}
+                        <span>{{ $winTitle | upper }}</span>
+                    {{ end }}
+
+                    {{ $winStatus := .Site.Params.window_status | default "path" }}
+                    {{ if .IsHome }}
+                         {{ $winStatus = .Site.Params.home_window_status | default $winStatus }}
+                    {{ end }}
+
+                    {{ if eq (lower $winStatus) "path" }}
+                        <span>{{ if .Section }}~/{{ .Section }}{{ else }}~/{{ end }}</span>
+                    {{ else }}
+                        <span>{{ $winStatus }}</span>
+                    {{ end }}
                 </div>
 
                 <!-- Cover Page (Nested for Web, Separate for Print) -->
@@ -37,7 +56,7 @@
                     </section>
                 {{ end }}
 
-                <article class="cat-v-post">
+                <article class="post">
                     <h2 class="text-2xl font-bold mb-1 leading-tight">{{ .Title }}</h2>
                     <div class="flex items-center gap-2 mb-4">
                         <span class="text-[10px] opacity-50">{{ .Date.Format "2006-01-02" }}</span>

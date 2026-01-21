@@ -16,8 +16,23 @@
             {{ if .Content }}
             <div class="bunker-window">
                 <div class="window-title">
-                    <span>{{ .Title | upper }}</span>
-                    <span>{{ .Params.status | default "100% HEALTH" }}</span>
+                    {{ $winTitle := .Site.Params.window_title | default "" }}
+                    {{ $winTitle = .Site.Params.home_window_title | default $winTitle }}
+                    
+                    {{ if eq (lower $winTitle) "title" }}
+                        <span>{{ .Title | upper }}</span>
+                    {{ else }}
+                        <span>{{ $winTitle | upper }}</span>
+                    {{ end }}
+
+                    {{ $winStatus := .Site.Params.window_status | default "path" }}
+                    {{ $winStatus = .Site.Params.home_window_status | default $winStatus }}
+                    
+                    {{ if eq (lower $winStatus) "path" }}
+                        <span>{{ .Params.status | default "100% HEALTH" }}</span>
+                    {{ else }}
+                        <span>{{ $winStatus }}</span>
+                    {{ end }}
                 </div>
                 <div class="p-4">
                      <div class="border-l-4 border-[#ffcc00] pl-4 mb-4">
