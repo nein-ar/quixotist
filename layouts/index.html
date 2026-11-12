@@ -1,0 +1,110 @@
+{{ define "main" }}
+<!-- BEGIN: layouts/index.html -->
+<div class="print-main-container">
+    <header class="flex flex-col md:flex-row items-center gap-6 mb-8 print-header">
+        {{ partial "header_content.html" . }}
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <div class="md:col-span-3">
+            {{ range .Site.Params.widgets.left }}
+                {{ partial "widget.html" (dict "widget" . "context" $) }}
+            {{ end }}
+        </div>
+
+        <div class="md:col-span-6">
+            {{ if .Content }}
+            <div class="bunker-window">
+                <div class="window-title">
+                    {{ $winTitle := .Site.Params.window_title | default "" }}
+                    {{ $winTitle = .Site.Params.home_window_title | default $winTitle }}
+                    
+                    {{ if eq (lower $winTitle) "title" }}
+                        <span>{{ .Title | upper }}</span>
+                    {{ else }}
+                        <span>{{ $winTitle | upper }}</span>
+                    {{ end }}
+
+                    {{ $winStatus := .Site.Params.window_status | default "path" }}
+                    {{ $winStatus = .Site.Params.home_window_status | default $winStatus }}
+                    
+                    {{ if eq (lower $winStatus) "path" }}
+                        <span>{{ .Params.status | default "100% HEALTH" }}</span>
+                    {{ else }}
+                        <span>{{ $winStatus }}</span>
+                    {{ end }}
+                </div>
+                <div class="p-4">
+                     <div class="border-l-4 border-[#ffcc00] pl-4 mb-4">
+                        <h1 class="text-2xl font-bold font-mono uppercase">{{ .Title }}</h1>
+                     </div>
+                     <div class="text-[10px] text-gray-500 font-mono mb-6 uppercase">
+                        {{ .Date.Format "2006-01-02" }} // {{ .Params.section_name | default "home" }}
+                     </div>
+                     <div class="prose font-mono text-sm max-w-none">
+                        {{ .Content }}
+                     </div>
+                </div>
+            </div>
+            {{ end }}
+
+            {{ if .Params.showcase_sections }}
+                {{ range .Params.showcase_sections }}
+                    {{ $section := $.Site.GetPage (printf "/%s" .) }}
+                    {{ if $section }}
+                        <div class="bunker-window">
+                            <div class="window-title">
+                                <span>{{ $section.Title | upper }}</span>
+                                <span>LATEST_ENTRIES</span>
+                            </div>
+
+                            {{ if $.Params.previews }}
+                                {{ $articles := $section.RegularPages }}
+                                {{ $subsections := $section.Sections }}
+                                
+                                {{ if $articles }}
+                                    <div class="space-y-8 p-4">
+                                        {{ range $articles }}
+                                            {{ partial "post-preview.html" . }}
+                                        {{ end }}
+                                    </div>
+                                {{ end }}
+
+                                {{ if $subsections }}
+                                    {{ partial "directory-listing.html" (dict "Pages" $subsections "Title" "Subdirectories") }}
+                                {{ end }}
+                            {{ else }}
+                                {{ partial "directory-listing.html" $section }}
+                            {{ end }}
+                        </div>
+                    {{ end }}
+                {{ end }}
+            {{ end }}
+
+            {{ range .Site.Params.widgets.center }}
+                {{ partial "widget.html" (dict "widget" . "context" $) }}
+            {{ end }}
+        </div>
+
+        <div class="md:col-span-3">
+            {{ range .Site.Params.widgets.right }}
+                {{ partial "widget.html" (dict "widget" . "context" $) }}
+            {{ end }}
+        </div>
+    </div>
+</div>
+
+<footer class="mt-8 no-print">
+    {{ if .Site.Params.marquee.text }}
+    <div class="marquee border-2 border-black">
+        <div class="marquee-content">
+            {{ .Site.Params.marquee.text }} {{ .Site.Params.marquee.text }}
+        </div>
+    </div>
+    {{ end }}
+    <div class="text-[8px] mt-2 text-center uppercase tracking-widest">
+        {{ .Site.Params.copyright | default "All rights reserved to the individual." }}
+    </div>
+</footer>
+<!-- END: layouts/index.html -->
+{{ end }}

@@ -1,0 +1,73 @@
+{{ define "main" }}
+<!-- BEGIN: layouts/_default/list.html -->
+<div class="print-main-container">
+    <header class="flex flex-col md:flex-row items-center gap-6 mb-8 print-header">
+        {{ partial "header_content.html" . }}
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <div class="md:col-span-3 no-print">
+            {{ range .Site.Params.widgets.left }}
+                {{ partial "widget.html" (dict "widget" . "context" $) }}
+            {{ end }}
+        </div>
+
+        <div class="md:col-span-6 print-full-width">
+            <div class="bunker-window print-no-border" id="cat-v">
+                <div class="window-title no-print">
+                    <span>{{ .Title | upper }}</span>
+                    <span>{{ .Params.status | default "100% HEALTH" }}</span>
+                </div>
+
+                {{ if .Content }}
+                    <div class="p-4 text-sm">{{ .Content }}</div>
+                {{ end }}
+
+                {{ if .Params.previews }}
+                    {{ $articles := .RegularPages }}
+                    {{ $subdirs := .Sections }}
+
+                    {{ if and (not $articles) $subdirs }}
+                        {{ errorf "Section %s has 'previews: true' but only contains sub-sections. Previews only work for articles." .Path }}
+                    {{ end }}
+
+                    {{ if $articles }}
+                        <div class="space-y-8 p-4">
+                            {{ range (.Paginate $articles).Pages }}
+                                {{ partial "post-preview.html" . }}
+                            {{ end }}
+                        </div>
+                        {{ template "_internal/pagination.html" . }}
+                    {{ end }}
+
+                    {{ if $subdirs }}
+                        {{ partial "directory-listing.html" (dict "Pages" $subdirs "Title" "DIRECTORY LISTING" "IsSection" true) }}
+                    {{ end }}
+                {{ else }}
+                    {{ partial "directory-listing.html" . }}
+                {{ end }}
+            </div>
+        </div>
+
+        <div class="md:col-span-3 no-print">
+            {{ range .Site.Params.widgets.right }}
+                {{ partial "widget.html" (dict "widget" . "context" $) }}
+            {{ end }}
+        </div>
+    </div>
+</div>
+
+<footer class="mt-8 no-print">
+    {{ if .Site.Params.marquee.text }}
+        <div class="marquee border-2 border-black no-print">
+            <div class="marquee-content">
+                {{ .Site.Params.marquee.text }} {{ .Site.Params.marquee.text }}
+            </div>
+        </div>
+    {{ end }}
+    <div class="text-[8px] mt-2 text-center uppercase tracking-widest no-print">
+        {{ .Site.Params.copyright | default "All rights reserved to the individual." }}
+    </div>
+</footer>
+<!-- END: layouts/_default/list.html -->
+{{ end }}

@@ -1,0 +1,140 @@
+baseURL = 'https://nein.ar'
+languageCode = 'en-us'
+title = 'NEIN-AR'
+theme = "quixotist"
+
+publishDir = "pub"
+enableRobotsTXT = true
+ignoreFiles = ["\\.Rmd$", "_files$", "_cache$"]
+enableEmoji = true
+footnotereturnlinkcontents = "↗"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[params]
+  subtitle = "SYSTEMS / SOFTWARE / PHILOSOPHY"
+  avatar = "https://github.com/nein-ar.png"
+  description = "Dedicated to the cause"
+
+  window_status = "path"
+  home_window_status = "100% HEALTH"
+  window_title = "CONTENT_HOSTING"
+  home_window_title = "CONTENT_HOSTING"
+
+  [[params.header_tags]]
+    text = "PLAN 9"
+    style = "default"
+  [[params.header_tags]]
+    text = "SUCKLESS"
+    style = "default"
+  [[params.header_tags]]
+    text = "VLLC"
+    style = "highlight"
+
+  [params.marquee]
+    text = "NO BLOAT. NO CPP. C99 SUPREMACY // PUBLIC DOMAIN // FULLY STATICALLY LINKED // INDUSTRIA ARGENTINA // EST. 2026 //"
+
+  [[params.widgets.left]]
+    title = "DIRECTORY"
+    title_right = "[X]"
+    type = "menu"
+    dynamic = true
+
+  [[params.widgets.left]]
+    title = "SYSTEM_STATUS"
+    title_right = "_"
+    type = "status"
+    rows = [
+      { key = "OS", value = "derivelinux" },
+      { key = "LOC", value = "Argentina" },
+      { key = "MOOD", value = "Impacient" }
+    ]
+
+  [[params.widgets.right]]
+    title = "WEB_CLIQUE"
+    title_right = "(+)"
+    type = "buttons"
+
+    [[params.widgets.right.items]]
+      name = "Subscribe"
+      url = "/index.xml"
+      class = "bg-[#ffcc00] text-black font-bold"
+      alt = "RSS Feed"
+
+    [[params.widgets.right.items]]
+      name = "git.xplshn"
+      url = "https://git.xplshn.com.ar"
+      class = "bg-gray-200"
+
+    [[params.widgets.right.items]]
+      name = "harmful"
+      url = "https://harmful.cat-v.org"
+      class = "bg-purple-100"
+
+    [[params.widgets.right.items]]
+      name = "nosystemd"
+      url = "https://nosystemd.org"
+      class = "bg-red-100"
+
+    [[params.widgets.right.items]]
+      name = "suckless"
+      url = "https://suckless.org"
+      class = "bg-black text-white"
+
+    [[params.widgets.right.items]]
+      name = "Copacabana"
+      url = "https://copacabana.pindorama.net.br"
+      class = "bg-green-100"
+
+    [[params.widgets.right.items]]
+      name = "shithub"
+      url = "https://shithub.us"
+      class = "bg-gray-800 text-white"
+
+    [[params.widgets.right.items]]
+      name = "ManVsState"
+      url = "https://web.archive.org/web/20231123031907/https://managainstthestate.blogspot.com/2011/08/anarcho-capitalist-resources-by-wesker.html"
+      class = "bg-yellow-50 border-dashed"
+      alt = "Anarcho-Capitalist Resources"
+
+    [[params.widgets.right.items]]
+      name = "musl"
+      url = "https://musl.libc.org"
+      class = "bg-blue-100"
+
+  [[params.widgets.right]]
+    title = "INSPIRATION"
+    type = "links"
+    [[params.widgets.right.items]]
+      name = "cat-v.org"
+      url = "http://cat-v.org"
+      note = "(Sanity)"
+    [[params.widgets.right.items]]
+      name = "uriel †"
+      url = "http://uriel.cat-v.org"
+      note = "(Spirit)"
+
+  [[params.widgets.right]]
+    type = "flag"
+    colors = ["#74ACDF", "#FFFFFF", "#74ACDF"]
+    symbol = "☀️"
+
+[menu]
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/#about"
+    weight = 1
+  [[menu.main]]
+    identifier = "subdomains"
+    name = "Subdomains"
+    url = "/#subdomains"
+    weight = 3
+  [[menu.main]]
+    identifier = "friends"
+    name = "Friends"
+    url = "/#links"
+    weight = 4

@@ -1,0 +1,41 @@
+<!-- BEGIN: layouts/partials/directory-listing.html -->
+<div class="accent-bar no-print"></div>
+<div class="mt-4 p-4">
+  <h3
+    class="font-bold mb-4 uppercase text-xs tracking-widest bg-gray-100 p-1 inline-block"
+  >
+    <!--
+        {{- if and .Title (ne .Title "DIRECTORY LISTING") (ne .Title "Subdirectories") -}}
+            /{{- .Title | upper -}}
+        {{- else -}}
+            DIRECTORY LISTING
+        {{- end -}}
+    -->
+    DIRECTORY LISTING
+  </h3>
+  <div class="grid grid-cols-1 gap-2">
+    {{ $pages := .Pages }} {{ if and (not $pages) (reflect.IsSlice .) }} {{
+    $pages = . }} {{ end }} {{ range $pages }} {{ $itemTitle := or .Title
+    .LinkTitle .File.ContentBaseName }}
+    <div
+      class="flex items-center justify-between border-b border-gray-100 py-1 hover:bg-yellow-50 px-2 transition-colors"
+    >
+      <a href="{{ .RelPermalink }}" class="text-sm font-bold">
+        {{ if or .IsSection (eq .Kind "section") }}/{{ $itemTitle }}{{ else }}{{
+        $itemTitle }}{{ end }}
+      </a>
+      <div class="flex items-center gap-2">
+        <span class="text-[10px] opacity-50 font-mono"
+          >{{ if not .Date.IsZero }}{{ .Date.Format "2006-01-02" }}{{ else
+          }}-----{{ end }}</span
+        >
+        <span class="subdomain-tag"
+          >{{ if or .IsSection (eq .Kind "section") }}DIR{{ else }}FILE{{ end
+          }}</span
+        >
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</div>
+<!-- END: layouts/partials/directory-listing.html -->

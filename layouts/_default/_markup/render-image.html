@@ -1,0 +1,12 @@
+<!-- BEGIN: layouts/_default/_markup/render-image.html -->
+{{ if .Title }}
+<figure>
+  <img src="{{ .Destination | safeURL }}" alt="{{ .Text }}" />
+  <figcaption>{{ .Title }}</figcaption>
+</figure>
+{{ else }}
+<figure>
+  <img src="{{ .Destination | safeURL }}" alt="{{ .Text }}" />
+</figure>
+{{ end }}
+<!-- END: layouts/_default/_markup/render-image.html -->
